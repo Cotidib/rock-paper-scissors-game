@@ -14,3 +14,4 @@ Users should be able to:
 - HTML5, CSS3
 - Mobile-first workflow
 - React JS and React Hooks
+- [Framer Motion](https://www.framer.com/motion/)
