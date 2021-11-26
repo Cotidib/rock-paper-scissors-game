@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import Paper from './images/icon-paper.svg';
 import Rock from './images/icon-rock.svg';
 import Scissors from './images/icon-scissors.svg';
@@ -22,21 +22,22 @@ const AppProvider = ({ children }) => {
 
   const startGame = () => {
     setStart(true);
-    setHousePick("");
-    setPlayerPick("");
+    // setHousePick("");
+    // setPlayerPick("");
     let randomNum = Math.floor(Math.random() * max);
     let randomPick = Object.keys(options);
     setHousePick(randomPick[randomNum]);
     console.log("house choose " + randomPick[randomNum])
   };
 
- useEffect( () => {
-   if(start){
-      compare();
-   }
- },[playerPick])
+  const restartGame = () => {
+    console.log("restart");
+    setHousePick("");
+    setPlayerPick("");
+    setStart(false);
+  }
 
-  const compare = () => {
+  const compare = useCallback(() => {
     console.log(playerPick);
     let diff = options[playerPick].id - options[housePick].id;
     if(diff === 1 || diff === -2){
@@ -52,7 +53,14 @@ const AppProvider = ({ children }) => {
         console.log("draw");
         setResult("draw");
     } 
-  }
+    // setStart(false);
+  },[playerPick, housePick, score])
+
+  useEffect( () => {
+    if(start){
+       compare();
+    }
+  },[playerPick])
 
   return <AppContext.Provider 
     value={{
@@ -63,6 +71,7 @@ const AppProvider = ({ children }) => {
         start,
         result,
         score,
+        restartGame,
       
     }}>{children}</AppContext.Provider>
 }
