@@ -18,6 +18,7 @@ const AppProvider = ({ children }) => {
   const [housePick, setHousePick] = useState("");
   const [playerPick, setPlayerPick] = useState("");
   const [result, setResult] = useState("");
+  const [win, setWin] = useState(false);
   const [score, setScore] = useState(0);
 
   const startGame = () => {
@@ -35,6 +36,7 @@ const AppProvider = ({ children }) => {
     setHousePick("");
     setPlayerPick("");
     setStart(false);
+    setWin(false);
   }
 
   const compare = useCallback(() => {
@@ -44,14 +46,17 @@ const AppProvider = ({ children }) => {
         console.log("player wins"); 
         setResult("you win");
         setScore(score + 1);
+        setWin(true);
     }
     else if(diff === 2 || diff === -1){
         console.log("house wins");
         setResult("you loose"); 
+        // setWin(false);
     }
     else if(diff === 0){
         console.log("draw");
         setResult("draw");
+        // setWin(false)
     } 
     // setStart(false);
   },[playerPick, housePick, score])
@@ -72,6 +77,7 @@ const AppProvider = ({ children }) => {
         result,
         score,
         restartGame,
+        win,
       
     }}>{children}</AppContext.Provider>
 }

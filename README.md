@@ -15,3 +15,6 @@ Users should be able to:
 - Mobile-first workflow
 - React JS and React Hooks
 - [Framer Motion](https://www.framer.com/motion/)
+
+### Live site
+https://constanzas-rock-paper-scissors.netlify.app/
